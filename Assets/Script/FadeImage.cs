@@ -1,26 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public class FadeImage : MonoBehaviour
 {
-    [SerializeField] private Image canvas;
+    [FormerlySerializedAs("canvas")] [SerializeField] private Image image;
     [SerializeField] Timer referenceTimer;
+    private float FadeTime = 0.1f;
 
     void Start()
     {
-        if (canvas == null)
+        if (image == null)
         {
             Debug.LogError("L'immagine da sbiadire non è stata assegnata!");
             enabled = false;
             return;
         }
         
-        Color c = canvas.color;
-        c.a = 0;
-        canvas.color = c;
+        Color c = image.color;
+        c.a = 0f;
+        image.color = c;
 
-        if (referenceTimer.RemainingTime <= 30.0f)
+        if (referenceTimer.RemainingTime <= 30f)
         {
             StartCoroutine(FadeSequence());    
         }
@@ -30,17 +33,20 @@ public class FadeImage : MonoBehaviour
     {
         while (true)
         {
-            if (canvas.color.a <= 0f)
+
+            if (image.color.a <= 0f)
             {
-                Color c = canvas.color;
+                Color c = image.color;
+
                 c.a += Time.deltaTime;
-                canvas.color = c;
+                image.color = c;
             }
-            else if (canvas.color.a >= 1f)
+            else if (image.color.a >= 1f)
             {
-                Color c = canvas.color;
-                c.a -= Time.deltaTime;
-                canvas.color = c;
+                Color c = image.color;
+
+                c.a -= FadeTime * Time.deltaTime;
+                image.color = c;
             }
         }
     }

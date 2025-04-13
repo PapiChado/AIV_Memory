@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject card;
-    [SerializeField] private Vector3[] cards;
+    [SerializeField] public Vector3[] cards;
     [SerializeField] private Texture2D[] images;
     [SerializeField] private float startX;
     [SerializeField] private float startY;
@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
                     // Gameover
                     winUI.SetActive(true);
                     winUI.GetComponent<AudioSource>().Play();
+                    cards = null;
                 }
             }
             else
