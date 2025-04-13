@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float deltaX = 1.1f;
     [SerializeField] private float deltaY = 1.1f;
     [SerializeField] private int columns = 5;
-    [SerializeField]
-    int rows = 6;
+    [SerializeField] int rows = 6;
 
     [SerializeField] private GameObject winUI;
 
@@ -28,6 +27,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        winUI.SetActive(false);
         if (rows * columns != images.Length * 2)
         {
             Debug.LogWarning("Number of r*c is not equal to provided cards, quit...");
@@ -98,19 +98,19 @@ public class GameManager : MonoBehaviour
         
         else if (selectedCard1 == card && !selected)
         {
-            //selectedCard1.ResetMe();
+            selectedCard1.ResetMe();
             selectedCard1 = null;
         }
         else if (selectedCard2 != null && card == selectedCard2 && !selected)
         {
-            //selectedCard2.ResetMe();
+            selectedCard2.ResetMe();
             selectedCard2 = null;
         }
         else if (selectedCard2 == null && card != selectedCard1 && selected)
         {
             selectedCard2 = card;
 
-            if (selectedCard1.CompareTag(selectedCard2))
+            if (selectedCard1.Compare(selectedCard2))
             {
                 //ok match!
                 

@@ -20,7 +20,7 @@ public class InteractiveCard : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        transform.rotation = Quaternion.Euler(0, 100, 0);
+        transform.rotation = Quaternion.Euler(0, 180, 0);
         _audioSource = GetComponent<AudioSource>();
     }
 
