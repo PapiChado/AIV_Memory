@@ -2,23 +2,24 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] GameObject loserUI;
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] private float remainingTime;
+    [FormerlySerializedAs("remainingTime")] [SerializeField] public float RemainingTime;
 
     void Update()
     {
         loserUI.SetActive(false);
-        remainingTime -= Time.deltaTime;
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        RemainingTime -= Time.deltaTime;
+        int minutes = Mathf.FloorToInt(RemainingTime / 60);
+        int seconds = Mathf.FloorToInt(RemainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        if(remainingTime<= 0)
+        if(RemainingTime<= 0)
         {
-            remainingTime = 0;
+            RemainingTime = 0;
             timerText.text = ("00:00");
             timerEnded();
         }
